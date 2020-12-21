@@ -83,7 +83,7 @@ namespace Lecture_1
 
         private static void task03()
         {
-            string sentence = "Display th epattern like pyramid using the alphabets";
+            string sentence = "Display the pattern like pyramid using the alphabets";
 
             string[] words = sentence.Split("");
             Stack<string> stack = new Stack<string>();
