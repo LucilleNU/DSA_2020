@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DSA_Assignment
@@ -11,14 +12,15 @@ namespace DSA_Assignment
         public object[] First = new object[4];
         public object[] Last = new object[4];
 
-
         public float MaxElement = 0;
         public float MinElement = 0;
 
+        public object[] Highest_Score = new object[4];
+        public object[] Lowest_Score = new object[4];
 
         public Dictionary<int, object[]> Nan = new Dictionary<int, object[]>();
 
-        public CustomDataList(string FirstName, string LastName, string StudentNumber, double AverageScore)
+        /*public CustomDataList(string FirstName, string LastName, string StudentNumber, float AverageScore)
         {
             student[0] = FirstName;
             student[1] = LastName;
@@ -38,7 +40,7 @@ namespace DSA_Assignment
             Last[3] = AverageScore;
 
             Length++;
-        }
+        }*/
 
         public void PopulateWithSampleData()
         {
@@ -86,12 +88,11 @@ namespace DSA_Assignment
             Last[1] = Student5[1];
             Last[2] = Student5[2];
             Last[3] = Student5[3];
-
-
         }
 
-        public void Add(string FirstName, string LastName, string StudentNumber, double AverageScore)
+        public void Add(string FirstName, string LastName, string StudentNumber, float AverageScore)
         {
+            Console.WriteLine(Length);
             object[] Student = new object[4];
             Student[0] = FirstName;
             Student[1] = LastName;
@@ -104,6 +105,33 @@ namespace DSA_Assignment
             Last[3] = AverageScore;
 
             Nan.Add(Length, Student);
+
+            if (Length == 0)
+            {
+                MaxElement = AverageScore;
+                Highest_Score = Student;
+
+                MinElement = AverageScore;
+                Lowest_Score = Student;
+
+                First[0] = FirstName;
+                First[1] = LastName;
+                First[2] = StudentNumber;
+                First[3] = AverageScore;
+            }
+            else
+            {
+                if (AverageScore > MaxElement)
+                {
+                    MaxElement = AverageScore;
+                    Highest_Score = Student;
+                }
+                if (AverageScore < MinElement)
+                {
+                    MinElement = AverageScore;
+                    Lowest_Score = Student;
+                }
+            }
 
             Length++;
         }
@@ -124,7 +152,6 @@ namespace DSA_Assignment
                 student[3] = 0;
                 return error;
             }
-
         }
 
         public void RemoveByIndex(int Index)
@@ -164,7 +191,6 @@ namespace DSA_Assignment
             First = Nan[0];
 
             Length = Length - 1;
-
         }
 
         public void RemoveLast()
@@ -192,5 +218,25 @@ namespace DSA_Assignment
             }
         }
 
+        public object[] GetElementByAverage(float Average)
+        {
+            int countee = 0;
+            while (countee < Length)
+            {
+                object[] array = Nan[countee];
+                if (Average == (float)array[3])
+                {
+                    return (Nan[countee]);
+                }
+                else
+                {
+                    countee++;
+                }
+            }
+
+            return null;
+        }
     }
 }
+    
+
